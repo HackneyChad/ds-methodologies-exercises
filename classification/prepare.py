@@ -1,60 +1,50 @@
+'''
+misc functions for working with the titanic and iris dbase
+'''
 import pandas as pd
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
 
-import acquire
+def drop_i_columns(df):
+    '''drops iris columns'''
+    return df.drop(columns = (['measurement_id', 'species_id']))
 
-# prep iris data
-df_i = acquire.get_iris_data()
-
-def drop_columns(df):
-        df = df.drop(columns=['measurement_id', 'species_id'], axis=1)
-        return df
-
-def rename_columns(df):
-        df.rename(columns={'species_name': 'species'}, inplace=True)
-        return df
+def rename_species(df):
+    '''renames species_name to species'''
+    return df.rename(index = str, columns={'species_name': 'species'})
 
 def encode_species(df):
-        encoder = LabelEncoder()
-        encoder.fit(df.species)
-        df.species = encoder.transform(df.species)
-        return df
+    '''encodes species'''
+    encoder = LabelEncoder()
+    encoder.fit(df.species)
+    return df.assign(species_encode = encoder.transform(df.species))
 
-def prep_iris(df):
-        df = drop_columns(df)
-        df = rename_columns(df)
-        df = encode_species(df)
-        return df
-
-df_i = prep_iris(df_i)
-
-
-# prep titanic data
-df_t = acquire.get_titanic_data()
+def prep_iris_data(df):
+    '''preps all of iris data'''
+    return df.pipe(drop_i_columns)\
+        .pipe(rename_species)\
+        .pipe(encode_species)
 
 def handle_missing_values(df):
-        df.embark_town.fillna('Other', inplace=True)
-        df.embarked.fillna('O', inplace=True)
-        df.age.fillna(df.age.median(), inplace=True)
-        return df
+    '''sets missing values in embarked and embark_town'''
+    return df.assign(
+        embark_town = df.embark_town.fillna('Other'),
+        embarked = df.embarked.fillna('O')
+    )
 
-def drop_columns(df):
-        df = df.drop(columns=['deck'], axis=1)
-        return df
+def drop_t_columns(df):
+    '''drop deck'''
+    return df.drop(columns = 'deck')
 
 def encode_embarked(df):
-        encoder = LabelEncoder()
-        encoder.fit(df.embarked)
-        embarked = encoder.transform(df.embarked)
-        return df
-    
+    '''encodes embarked'''
+    encoder=LabelEncoder()
+    encoder.fit(df.embarked)
+    return df.assign(embarked_encode = encoder.transform(df.embarked))
+
 def prep_titanic(df):
-        df = handle_missing_values(df)
-        df = drop_columns(df)
-        df = encode_embarked(df)
-        return df
-  
-df_t = prep_titanic(df_t)
+    '''preps all of titanic'''
+    return df.pipe(handle_missing_values)\
+        .pipe(drop_t_columns)\
+        .pipe(encode_embarked)
