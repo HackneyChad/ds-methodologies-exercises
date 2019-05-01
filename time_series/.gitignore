@@ -1,0 +1,6 @@
+*.csv
+*.txt
+Time_Series_Forecasting_chart.png
+__pycache__/
+access copy.log
+access.log
