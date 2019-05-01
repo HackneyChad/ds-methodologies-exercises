@@ -1,0 +1,8 @@
+env.py
+*.csv
+__pycache__/
+.ipynb_checkpoints/
+classification/Excel_Stats.xlsx
+regression_old/
+*.txt
+*.xlsx
