@@ -1,0 +1,8 @@
+env.py
+__pycache__/
+.ipynb_checkpoints/
+regression_old/
+*.csv
+*.txt
+*.xlsx
+*.pdf
