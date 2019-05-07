@@ -8,3 +8,6 @@ regression_old/
 *.txt
 *.xlsx
 *.pdf
+Machine_Learning_Methodologies_chart.jpg_large
+nlp/test.py
+anomaly_detection/anomaly_detection_experiment.ipynb
