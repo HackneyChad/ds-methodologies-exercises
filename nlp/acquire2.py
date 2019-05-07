@@ -1,0 +1,2 @@
+from acquire_blogs import get_blog_articles
+from acquire_news import get_news_articles
