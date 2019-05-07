@@ -29,3 +29,9 @@ corpus = []
 
 for link in links:
     corpus.append((get_blog_articles(link)))
+
+def get_all_codeup_articles():
+        output = []
+        for link in links:
+                output.append(get_blog_articles(link))
+        return output
