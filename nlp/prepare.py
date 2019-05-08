@@ -32,21 +32,21 @@ def tokenize(string):
     return tokenizer.tokenize(string, return_str=True)
 
 #Performs stemming on the string.
-def stemmer(string):
+def stem(string):
     ps = nltk.stem.PorterStemmer()
     stems = [ps.stem(word) for word in string.split()]
     content_stemmed = ' '.join(stems)
     return content_stemmed
 
 #Performs lemmatize on the string.
-def lemmerator(string):
+def lemmatize(string):
     wnl = nltk.stem.WordNetLemmatizer()
     lemmas = [wnl.lemmatize(word.lower()) for word in string.split()]
     content_lemmatized = ' '.join(lemmas)
     return content_lemmatized
 
 
-def stopper(string):
+def remove_stopwords(string):
     stopword_list = stopwords.words('english')
     stopword_list.remove('no')
     stopword_list.remove('not')
@@ -60,17 +60,17 @@ def prep_article(article):
     output = {
         'title': article['title'],
         'original': article['content'],
-        'stemmed': stemmer(article['content']),
-        'lemmatize': lemmerator(article['content']),
+        'stemmed': stem(article['content']),
+        'lemmatize': lemmatize(article['content']),
         'clean': basic_clean(article['content']),
-        'stopped': stopper(article['content'])
+        'stopped': remove_stopwords(article['content'])
     }
     return output
 
-def prepare_all_articles():
+def prepare_article_data():
     articles = acquire_blogs.get_all_codeup_articles()
     prepped_articles = [prep_article(article) for article in articles]
     return prepped_articles
 
 #prepped_articles = 
-pprint(prepare_all_articles())
+pprint(prepare_article_data())
