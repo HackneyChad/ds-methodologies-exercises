@@ -45,7 +45,7 @@ def lemmatize(string):
     content_lemmatized = ' '.join(lemmas)
     return content_lemmatized
 
-
+# Removes stopwords.
 def remove_stopwords(string):
     stopword_list = stopwords.words('english')
     stopword_list.remove('no')
@@ -55,7 +55,7 @@ def remove_stopwords(string):
     article_without_stopwords = ' '.join(filtered_words)
     return article_without_stopwords.lower()
 
-
+# Preps article for output, in different versions/formats.
 def prep_article(article):
     output = {
         'title': article['title'],
@@ -67,10 +67,11 @@ def prep_article(article):
     }
     return output
 
+# "Master switch" function that calls all of the above, and loops through all the blogs at the urls.
 def prepare_article_data():
     articles = acquire_blogs.get_all_codeup_articles()
     prepped_articles = [prep_article(article) for article in articles]
     return prepped_articles
 
 #prepped_articles = 
-pprint(prepare_article_data())
+#pprint(prepare_article_data())
