@@ -13,3 +13,7 @@ nlp/test.py
 anomaly_detection/anomaly_detection_experiment.ipynb
 nlp/Python_practice.ipynb
 nlp/prepare_1st_draft.ipynb
+00_References_pdfs/
+project.ipynb
+regression/old/regression_warmup.ipynb
+regression/regression_warmup.ipynb
